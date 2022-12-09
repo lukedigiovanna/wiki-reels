@@ -4,25 +4,25 @@
 server/node_modules
 server/.pnp
 server/.pnp.js
-client-app/node_modules
-client-app/.pnp
-client-app/.pnp.js
+browser-app/node_modules
+browser-app/.pnp
+browser-app/.pnp.js
 
 # testing
 server/coverage
-client-app/coverage
+browser-app/coverage
 
 # production
 server/build
-client-app/build
+browser-app/build
 
 # misc
-client-app/.DS_Store
-client-app/.env.local
-client-app/.env.development.local
-client-app/.env.test.local
-client-app/.env.production.local
+browser-app/.DS_Store
+browser-app/.env.local
+browser-app/.env.development.local
+browser-app/.env.test.local
+browser-app/.env.production.local
 
-client-app/npm-debug.log*
-client-app/yarn-debug.log*
-client-app/yarn-error.log*
+browser-app/npm-debug.log*
+browser-app/yarn-debug.log*
+browser-app/yarn-error.log*
