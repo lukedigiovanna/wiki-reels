@@ -11,9 +11,9 @@ import { HttpException } from "../models/exception.model";
 export function Endpoint(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     let fn = descriptor.value; // save off the original function
 
-    descriptor.value = function (...args: any[]) {
+    descriptor.value = async function (...args: any[]) {
         try {
-            let result = fn(...args); // call the original function
+            let result = await fn(...args); // call the original function
             return args[1].status(200).send(result); // success
         } catch (error: any) {
             if (error instanceof HttpException) {

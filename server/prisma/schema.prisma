@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model app_user {
+  id                               String   @id @db.VarChar(256)
+  rating_rating_app_userToapp_user rating[] @relation("rating_app_userToapp_user")
+}
+
+model rating {
+  id                                 Int       @id @default(autoincrement())
+  app_user                           String?   @db.VarChar(256)
+  rank                               Int?
+  article_title                      String    @db.VarChar(256)
+  app_user_rating_app_userToapp_user app_user? @relation("rating_app_userToapp_user", fields: [app_user], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

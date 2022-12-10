@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { randomArticle } from '../api';
 import { Article } from '../types/articles';
 import './wikipedia-styles.css';
-import { getCategories } from '../api';
 
 const Container = styled.div`
     max-width: 800px;
@@ -50,7 +48,6 @@ export const MainPage = () => {
                 Wiki-Reels
             </Title>
             <button onClick={async () => {
-                
                 newArticle();
             }}>
                 Like

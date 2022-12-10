@@ -14,7 +14,8 @@ class RatingsRouter implements RouteSource {
     }
 
     initializeRoutes() {
-        this.router.get("/", this.controller.test);
+        this.router.get("/", this.controller.getAllRatings);
+        this.router.post("/", this.controller.postRating);
     }
 }
 
