@@ -23,10 +23,28 @@ export const randomArticle: () => Promise<Article> = async () => {
             redirects=true`
     )
 
+    const categories = await getCategories(title);
+
     const article: Article = {
         title,
-        body: parse.data.parse.text["*"]
+        body: parse.data.parse.text["*"],
+        categories
     }
 
     return article;
+}
+
+export const getCategories: (article: string) => Promise<string[]> = async (article: string) => {
+    const response = await axios.get(
+        `https://en.wikipedia.org/w/api.php?
+            action=query&
+            format=json&
+            prop=categories&
+            titles=${article}&
+            formatversion=2`);
+
+    const categories: any[] = response.data.query.pages[0].categories;
+    const categoryNames: string[] = categories.map((cat: any) => cat.title.substring(9));
+
+    return categoryNames;
 }
