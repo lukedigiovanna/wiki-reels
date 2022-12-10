@@ -14,7 +14,7 @@ class UsersRouter implements RouteSource {
     }
 
     initializeRoutes() {
-        this.router.get("/", this.controller.test);
+        
     }
 } 
 

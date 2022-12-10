@@ -1,10 +1,11 @@
+import { Request, Response } from 'express';
 import { Endpoint } from '../utils/endpoint';
 import users from './users.service';
 
 class UsersController {
     @Endpoint
-    test() {
-        return users.getNothing();
+    createUser(req: Request, res: Response) {
+        return "";
     }
 }
 
