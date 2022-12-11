@@ -1,9 +1,7 @@
 class UsersService {
-
-    getNothing() {
-        return "nothing :)";
+    createUser() {
+        
     }
-
 }
 
 export default new UsersService();
