@@ -26,7 +26,7 @@ const tokenizeArticle: (content: string) => string = (content: string) => {
                 .replace(/\[.+\]/g, "") // remove references
                 .replace(/\n/g, '') // remove new line characters
                 .replace(/[^\w^\s]/g, '') // remove everything except text and whitespace
-                .replace(/\s5+/g, ' ') // replace any white space with a single space
+                .replace(/\s+/g, ' ') // replace any white space with a single space
                 .trim() // remove leading and trailing whitespace
                 .split(' ').map(a => stemmer(a)).join(' '); // apply stemmer
     console.log(text);
