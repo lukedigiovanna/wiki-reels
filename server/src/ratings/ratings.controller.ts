@@ -4,11 +4,6 @@ import ratings from './ratings.service';
 
 class RatingsController {
     @Endpoint
-    forbidden(req: Request, res: Response) {
-        return ratings.get404();
-    }
-
-    @Endpoint
     async getAllRatings(req: Request, res: Response) {
         const all = await ratings.getAll();
         console.log(all);
