@@ -1,12 +1,16 @@
 import { SignInForm } from "../components/SignInForm";
+import styled from "styled-components";
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
 export const SignInPage = () => {
     return (
-        <>
-            <h1>
-                Sign In
-            </h1>
+        <Container>
             <SignInForm />
-        </>
+        </Container>
     )
 }

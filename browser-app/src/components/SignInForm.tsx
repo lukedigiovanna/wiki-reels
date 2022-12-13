@@ -3,6 +3,21 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../constants/firebase";
 import styled from "styled-components";
 import { Navigate } from "react-router-dom";
+import { createUser } from "../api";
+
+const Container = styled.div`
+    width: 500px;
+    padding: 20px;
+    margin-top: 100px;
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: #eee;
+`
+
+const Title = styled.h1`
+    font-family: sans-serif;
+    text-align: center;
+`
 
 const Error = styled.p`
     color: red;
@@ -32,13 +47,10 @@ export const SignInForm = () => {
     const [user, setUser] = useState<any>(null);
 
     return (
-        <div>
-            <h3>
-                Uh-oh!
-            </h3>
-            <p>
-                You need to be signed in to use this app.
-            </p>
+        <Container>
+            <Title>
+                Sign In
+            </Title>
             <p>
                 Sign in with email and password:
             </p>
@@ -71,7 +83,11 @@ export const SignInForm = () => {
             <br />
             <button onClick={() => {
                 signInWithPopup(auth, googleProvider)
-                .then((result) => {
+                .then(async (result) => {
+                    console.log(result.user.uid);
+                    // issue a request to the api to attempt to create a user with this ID.
+                    // in case this is the first sign in with their email.
+                    await createUser(result.user.uid);
                     setUser(result.user);
                 }).catch((error) => {
                     console.log(error);
@@ -87,6 +103,6 @@ export const SignInForm = () => {
                 user &&
                 <Navigate to="/" replace={true} />
             }
-        </div>
+        </Container>
     )
 }

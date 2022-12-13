@@ -26,3 +26,6 @@ browser-app/.env.production.local
 browser-app/npm-debug.log*
 browser-app/yarn-debug.log*
 browser-app/yarn-error.log*
+
+server/.env
+server/firebase-service-account.json

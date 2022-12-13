@@ -2,6 +2,9 @@ import axios from 'axios';
 import { Article } from '../types/articles';
 import { stemmer } from 'stemmer';
 
+/***************************
+ WIKIPEDIA DATABASE API STUFF
+***************************/
 const parseArticle: (content: string) => string = (content: string) => {
     const html = document.createElement("html");
     html.innerHTML = content;
@@ -28,7 +31,12 @@ const tokenizeArticle: (content: string) => string = (content: string) => {
                 .replace(/[^\w^\s]/g, '') // remove everything except text and whitespace
                 .replace(/\s+/g, ' ') // replace any white space with a single space
                 .trim() // remove leading and trailing whitespace
-                .split(' ').map(a => stemmer(a)).join(' '); // apply stemmer
+                .split(' ').map(a => stemmer(a)).join(' ')
+                .slice(0, 1000); // apply stemmer
+    while (text[text.length - 1] !== ' ') {
+        text = text.slice(0, text.length - 1);
+    }
+    text = text.trim();
     console.log(text);
     return text;
 }
@@ -52,8 +60,9 @@ export const randomArticle: () => Promise<Article> = async () => {
 
     const article: Article = {
         title,
-        body,
-        categories
+        body: body,
+        content: tokenized,
+        categories,
     }
 
     return article;
@@ -79,7 +88,35 @@ export const getCategories: (article: string) => Promise<string[]> = async (arti
     const categories: any[] = response.data.query.pages[0].categories;
     const categoryNames: string[] = categories
                                     .map((cat: any) => cat.title.substring(9))
-                                    .filter((v) => !forbiddenCategories.includes(v));
+                                    .filter((v) => forbiddenCategories.every((f) => v.indexOf(f) === -1));
 
     return categoryNames;
+}
+
+/***************************
+ SQL DATABASE API STUFF
+***************************/
+
+const domain = "http://localhost:4000";
+export const createUser = async (uid: string) => {
+    const response = await axios.post(`${domain}/api/users`, { uid });
+    return response.data;
+}
+
+export const submitRating = async (uid: string, article: string, rating: number) => {
+    // need to submit the rating into the SQL database.
+    const response = await axios.post(`${domain}/api/ratings`, { user: uid, articleTitle: article, rank: rating});
+    return response.data;
+}
+
+/***************************
+ FIREBASE DATABASE API STUFF
+***************************/
+export const submitArticle = async (article: Article) => {
+    const response = await axios.post(`${domain}/api/articles`, { 
+        title: article.title,
+        content: article.content,
+        categories: article.categories
+    });
+    return response.data;
 }
