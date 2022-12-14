@@ -4,6 +4,7 @@ import { auth, googleProvider } from "../constants/firebase";
 import styled from "styled-components";
 import { Navigate } from "react-router-dom";
 import { createUser } from "../api";
+import { GoogleSignInButton } from "./GoogleSignInButton";
 
 const Container = styled.div`
     width: 500px;
@@ -81,21 +82,17 @@ export const SignInForm = () => {
                 Login
             </button>
             <br />
-            <button onClick={() => {
+            <GoogleSignInButton onClick={() => {
                 signInWithPopup(auth, googleProvider)
                 .then(async (result) => {
-                    console.log(result.user.uid);
                     // issue a request to the api to attempt to create a user with this ID.
                     // in case this is the first sign in with their email.
                     await createUser(result.user.uid);
                     setUser(result.user);
-                }).catch((error) => {
-                    console.log(error);
-                    setError("Something went wrong");
+                }).catch((e) => {
+                    setError("Something went wrong :(");
                 });
-            }}>
-                Sign in with Google
-            </button>
+            }} />
             <Error>
                 {error}
             </Error>

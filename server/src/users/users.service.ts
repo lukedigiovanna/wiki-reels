@@ -9,10 +9,14 @@ class UsersService {
                     id: uid
                 }
             });
-            return user;
+            return {
+                status: "Created user with id: " + uid
+            };
         }
         catch (e) {
-            throw new HttpException(`User already exists with uid '${uid}'`, 400);
+            return {
+                status: "User already exists"
+            };
         }
     }
 }

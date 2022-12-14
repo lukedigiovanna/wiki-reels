@@ -30,6 +30,28 @@ const Italic = styled.span`
     font-style: italic;
 `
 
+const SignedInDetail = styled.p`
+    margin: 0;
+`
+
+const LogoutButton = styled.p`
+    cursor: pointer;
+    color: blue;
+    margin: 0;
+    text-align: right;
+    user-select: none;
+    font-size: 0.7rem;
+    transition: filter 0.4s ease-in-out;
+
+    &:active {
+        color: purple;
+    }
+
+    &:hover {
+        filter: drop-shadow(0px 0px 1px #ddd);
+    }
+`
+
 export const MainPage = () => {
     const [article, setArticle] = useState<Article | null>(null);
 
@@ -61,7 +83,15 @@ export const MainPage = () => {
                 <ArticleDisplay article={article} newArticle={newArticle}/>
             </Container>
             <SignedInDetails>
-                Signed in as <Italic>{auth.currentUser?.email}</Italic>
+                <SignedInDetail>
+                    Signed in as <Italic>{auth.currentUser?.email}</Italic>
+                </SignedInDetail>
+                <LogoutButton onClick={async () => {
+                    await auth.signOut();
+                    setArticle(null); // force sign out
+                }}>
+                    Logout
+                </LogoutButton>
             </SignedInDetails>
         </>
     )

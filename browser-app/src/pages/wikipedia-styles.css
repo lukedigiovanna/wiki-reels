@@ -246,3 +246,29 @@ caption {
     margin: 0.5em 1.4em 1.3em 0;
 }
 
+.mw-parser-output li {
+    font-size: 0.85rem;
+}
+
+.mw-parser-output th {
+    font-size: 15.2px;
+    background-color: rgb(234, 236, 240);
+    color: rgb(32, 33, 34);
+    padding: 4px;
+    border: 0.5px solid #a2a9b1;
+}
+
+.mw-parser-output td {
+    font-size: 14px;
+    text-align: left;
+    margin: 0;
+    padding: 4px 8px 4px 8px;
+    color: rgb(32, 33, 34);
+    border: 0.5px solid #a2a9b1;
+}
+
+.wikitable {
+    background-color: #f8f9fa;
+    border-spacing: 0;
+    border: 0.8px solid #a2a9b1;
+}
